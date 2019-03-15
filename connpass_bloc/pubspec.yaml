@@ -1,0 +1,16 @@
+name: connpass_bloc
+description: Shared Code between AngularDart and Flutter
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.0 <3.0.0"
+
+dependencies:
+  meta: ^1.1.6
+  bloc: any
+  equatable: any
+  http: any
+
+dev_dependencies:
+  test: any
+  mockito: any
