@@ -1,4 +1,4 @@
-package me.takehiro.connpass_curator.connpass_curator
+package me.takehiro.connpass_curator
 
 import android.os.Bundle
 
