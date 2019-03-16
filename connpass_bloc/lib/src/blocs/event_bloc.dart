@@ -34,12 +34,15 @@ class EventStateLoading extends EventState {
 }
 
 class EventStateSuccess extends EventState {
-  final Event event;
+  final Events events;
 
-  EventStateSuccess({this.event}) : super([event]);
+  EventStateSuccess({this.events}) : super([events]);
+
+//  @override
+//  String toString() => 'EventsSuccess { items: $event }';
 
   @override
-  String toString() => 'EventsSuccess { items: $event }';
+  String toString() => 'EventStateSuccess';
 }
 
 class EventStateError extends EventState {
@@ -64,10 +67,10 @@ class EventBloc extends Bloc<EventEvent, EventState> {
       yield EventStateLoading();
       try {
         print(event.eventId);
+        print(event);
         final event_content = await connpassRepository.getEvent(eventId: event.eventId);
-        print(event_content);
-        yield EventStateSuccess(event: event_content);
-        print(event_content);
+        print(event);
+        yield EventStateSuccess(events: event_content);
       } catch (_) {
         print(_);
         yield EventStateError();

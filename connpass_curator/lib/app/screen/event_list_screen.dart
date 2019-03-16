@@ -53,9 +53,6 @@ class _EventListScreenState extends State<EventListScreen> {
           print(EventsStateError());
           return Text("$EventsStateError()");
         } else if (state is EventsStateSuccess) {
-          print(EventsStateSuccess());
-          print(state.events.events[0].address);
-          print(state.events.events[0].catchText);
           return state.events.events.isEmpty
               ? Text("No Results")
               : _listTile(context, state.events.events);
@@ -68,9 +65,6 @@ class _EventListScreenState extends State<EventListScreen> {
     return ListView.builder(
       itemCount: events.length,
         itemBuilder: (BuildContext context, int index) {
-        print(events[index].title);
-        print(events[index].catchText);
-        print(index);
           return Column(
             children: <Widget>[
               ListTile(
@@ -82,9 +76,12 @@ class _EventListScreenState extends State<EventListScreen> {
                 subtitle: Text(events[index].catchText),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
-                  print(index);
+                  print(widget.connpassRepository);
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (BuildContext context)=> EventDetailScreen(event: events[index],)
+                      builder: (BuildContext context) => EventDetailScreen(
+                        event: events[index],
+                        title: events[index].title,
+                      )
                   ));
                 },
               ),

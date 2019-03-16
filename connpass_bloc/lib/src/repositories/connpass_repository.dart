@@ -9,9 +9,7 @@ class ConnpassRepository {
 
   // イベント一覧取得
   Future<Events> getEvents() async {
-    print("repository");
     final result = await connpassClient.getEvents();
-//    print(result);
     return result;
   }
 
@@ -22,15 +20,11 @@ class ConnpassRepository {
   }
 
   // イベント詳細取得
-  Future<Event> getEvent({String eventId}) async {
-    print("repository event");
+  Future<Events> getEvent({String eventId}) async {
     final result = await connpassClient.getEvent(eventId);
+    print("===");
     print(result);
-    return result;
-  }
-
-  Future<String> hello(String word) async {
-    final result = await connpassClient.hello(word);
+    print("===");
     return result;
   }
 }

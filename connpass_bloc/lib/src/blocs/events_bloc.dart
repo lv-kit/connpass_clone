@@ -22,8 +22,6 @@ class FetchSearchResultEvents extends EventsEvent {
   String toString() => 'FetchSearchResultEvents { keyword: $keyword }';
 }
 
-class FetchHello extends EventsEvent {}
-
 abstract class EventsState extends Equatable {
   EventsState([List props = const []]) : super(props);
 }
@@ -45,15 +43,6 @@ class EventsStateSuccess extends EventsState {
 
   @override
   String toString() => 'EventsSuccess { items: $events }';
-}
-
-class HelloStateSuccess extends EventsState {
-  final String event;
-
-  HelloStateSuccess({this.event}) : super([event]);
-
-  @override
-  String toString() => 'HelloStateSuccess { items: $event }';
 }
 
 class EventsStateError extends EventsState {
@@ -88,28 +77,11 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
       yield EventsStateLoading();
       try {
         final events = await connpassRepository.getSearchResultEvents(keyword: event.keyword);
-        print("=====");
-        print(events);
-        print("=====");
         yield EventsStateSuccess(events: events);
       } catch (_) {
         print("=====");
         print(_);
         print("=====");
-        yield EventsStateError();
-        print("=====");
-        print(_);
-        print("=====");
-      }
-    } else if (event is FetchHello) {
-      yield EventsStateLoading();
-      try {
-        print(event);
-        final event_content = await connpassRepository.hello("hello");
-        yield HelloStateSuccess(event: event_content);
-        print(event_content);
-      } catch (_) {
-        print(_);
         yield EventsStateError();
       }
     }

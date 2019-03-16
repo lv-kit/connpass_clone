@@ -15,16 +15,12 @@ class ConnpassClient {
 
   // イベント一覧取得
   Future<Events> getEvents() async {
-    print("getEvents() client");
     final response = await httpClient.get(Uri.parse("$baseUrl/event/"));
     final result = json.decode(response.body);
 
     if ( response.statusCode == 200 ) {
-//      print(result);
-      print("success");
       return Events.fromJson(result);
     } else {
-      print('error');
       throw ResultError.fromJson(result);
     }
   }
@@ -35,30 +31,24 @@ class ConnpassClient {
     final result = json.decode(response.body);
 
     if ( response.statusCode == 200 ) {
-      print("success");
       return Events.fromJson(result);
     } else {
-      print('error');
       throw ResultError.fromJson(result);
     }
   }
 
   // イベント詳細取得
-  Future<Event> getEvent(String eventId) async {
-    final response = await httpClient.get(Uri.parse("$baseUrl/event/?event_id=$eventId"));
+  Future<Events> getEvent(String eventId) async {
+    final response = await httpClient.get(Uri.parse("$baseUrl/event?event_id=$eventId"));
     final result = json.decode(response.body);
+    print("===client===");
+    print(result);
+    print("===");
 
     if ( response.statusCode == 200 ) {
-      print("success");
-      print(result);
-      return Event.fromJson(result.events[0]);
+      return Events.fromJson(result.events);
     } else {
-      print('error');
       throw ResultError.fromJson(result);
     }
-  }
-
-  Future<String> hello(String word) async {
-    return word;
   }
 }
